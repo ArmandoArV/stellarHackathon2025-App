@@ -90,6 +90,8 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     marginBottom: 12,
     color: "#222",
+    paddingHorizontal: 8,
+    backgroundColor: "#f3f6f9",
   },
   bountyCardsRow: {
     flexDirection: "row",
@@ -112,7 +114,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
   },
   bountyContainer: {
-    width: 210,
+    width: 300,
     height: 210,
     marginRight: 5,
     backgroundColor: "#f3f6f9",
@@ -177,8 +179,10 @@ export default function HomeScreen() {
           </ThemedView>
 
           {/* May interest you */}
-          <Text style={styles.sectionTitle}>May interest you</Text>
-          <ThemedView>
+          <ThemedView
+            style={{ backgroundColor: "#f3f6f9", alignContent: "center", justifyContent: "center", display: "flex" }}
+          >
+            <Text style={styles.sectionTitle}>May interest you</Text>
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}

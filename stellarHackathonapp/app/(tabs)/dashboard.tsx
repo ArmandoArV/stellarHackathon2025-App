@@ -89,6 +89,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#f3f6f9",
     borderRadius: 8,
     padding: 10,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
   },
 });
 
@@ -139,7 +142,7 @@ export default function TabTwoScreen() {
           </Text>
         </TouchableOpacity>
         <ThemedView
-          style={{ flex: 1, padding: 10, backgroundColor: "#f3f6f9" }}
+          style={{ flex: 1, padding: 10, backgroundColor: "#f3f6f9", alignContent: "center", justifyContent: "center", display: "flex" }}
         >
           <Text style={{ fontSize: 18, color: "#222", marginBottom: 20 }}>
            Popular options
