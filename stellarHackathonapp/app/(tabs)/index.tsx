@@ -1,5 +1,5 @@
 import { Image } from "expo-image";
-import { Platform, StyleSheet, Text, ScrollView, View } from "react-native";
+import { Platform, StyleSheet, Text, ScrollView } from "react-native";
 import { ThemedView } from "@/components/ThemedView";
 import Topic from "../components/Topic";
 import Header from "../components/Header";
@@ -109,6 +109,14 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 2 },
   },
+  bountyContainer: {
+    width: 210,
+    height: 210,
+    marginRight: 5,
+    backgroundColor: "#f3f6f9",
+    borderRadius: 8,
+    padding: 10,
+  },
 });
 
 export default function HomeScreen() {
@@ -176,12 +184,14 @@ export default function HomeScreen() {
               style={{ paddingVertical: 8, backgroundColor: "#f3f6f9" }}
             >
               {repeatedTopics.map((t, idx) => (
-                <Topic
-                  key={idx}
-                  topic={t.topic}
-                  title={t.title}
-                  reward={t.reward}
-                />
+                <ThemedView key={idx} style={styles.bountyContainer}>
+                  <Topic
+                    key={idx}
+                    topic={t.topic}
+                    title={t.title}
+                    reward={t.reward}
+                  />
+                </ThemedView>
               ))}
             </ScrollView>
           </ThemedView>
