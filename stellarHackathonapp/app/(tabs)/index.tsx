@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#ea893a",
     borderRadius: 16,
     padding: 20,
+    paddingHorizontal: 30,
     marginBottom: 32,
-    alignItems: "center",
   },
   bountiesTitle: {
     color: "#fff",
@@ -55,6 +55,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     fontWeight: "500",
     backgroundColor: "#ea893a",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
   },
   bountiesStatsRow: {
     flexDirection: "row",

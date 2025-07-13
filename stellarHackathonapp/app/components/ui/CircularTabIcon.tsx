@@ -19,8 +19,8 @@ export const CircularTabIcon: React.FC<CircularTabIconProps> = ({
 
 const styles = StyleSheet.create({
   iconContainer: {
-    width: 70,
-    height: 65,
+    width: 60,
+    height: 60,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
