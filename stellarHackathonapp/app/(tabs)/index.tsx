@@ -135,7 +135,6 @@ export default function HomeScreen() {
   return (
     <>
       <Header />
-
       <ThemedView style={styles.pageBackground}>
         <ThemedView style={styles.pageBackground}>
           {/* Greeting and Illustration */}
