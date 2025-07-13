@@ -83,15 +83,12 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   bountyContainer: {
-    width: 210,
-    height: 210,
-    marginRight: 5,
+    width: 280,
+    height: 190,
+    marginRight: 1,
     backgroundColor: "#f3f6f9",
     borderRadius: 8,
-    padding: 10,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
+    padding: 3,
   },
 });
 
