@@ -1,130 +1,163 @@
+import React, { useState } from "react";
 import { Image } from "expo-image";
-import { Platform, StyleSheet } from "react-native";
-
-import { Collapsible } from "@/components/Collapsible";
-import { ExternalLink } from "@/components/ExternalLink";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { ThemedView } from "@/components/ThemedView";
-import { IconSymbol } from "@/components/ui/IconSymbol";
-
+import Header from "../components/Header";
+import Topic from "../components/Topic";
+import { TopicProps } from "../types/TopicProps";
 const styles = StyleSheet.create({
-  headerImage: {
-    color: "#808080",
-    bottom: -90,
-    left: -35,
-    position: "absolute",
+  pageBackground: {
+    backgroundColor: "#f3f6f9",
+    flex: 1,
+    padding: 20,
   },
-  titleContainer: {
+  greetingRow: {
     flexDirection: "row",
+    alignItems: "flex-start",
+    marginBottom: 50,
+    paddingTop: Platform.OS === "ios" ? 50 : 0,
+    paddingBottom: 20,
     gap: 8,
+    backgroundColor: "#f3f6f9",
+  },
+  greetingText: {
+    fontSize: 50,
+    fontWeight: "300",
+    color: "#222",
+    backgroundColor: "#f3f6f9",
+  },
+  nameText: {
+    fontSize: 50,
+    fontWeight: "300",
+    color: "#222",
+    backgroundColor: "#f3f6f9",
+  },
+  illustration: {
+    width: 100,
+    height: 100,
+    marginLeft: 5,
+    backgroundColor: "#f3f6f9",
+    alignContent: "center",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  tokensCard: {
+    backgroundColor: "#D8D2BDD2",
+    borderRadius: 16,
+    padding: 20,
+    height: 165,
+    marginBottom: 32,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+  tokensTitle: {
+    fontSize: 24,
+    marginBottom: 1,
+    fontWeight: "300",
+    backgroundColor: "transparent",
+  },
+  tokenContainer: {
+    borderRadius: 8,
+    padding: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "transparent",
+  },
+  tokenValueNumber: {
+    fontSize: 70,
+    color: "#222",
+    backgroundColor: "transparent",
+  },
+  redeemButton: {
+    backgroundColor: "#315A2B",
+    paddingVertical: 16,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 8,
+  },
+  bountyContainer: {
+    width: 210,
+    height: 210,
+    marginRight: 5,
+    backgroundColor: "#f3f6f9",
+    borderRadius: 8,
+    padding: 10,
   },
 });
 
 export default function TabTwoScreen() {
+  const [tokenValue, setTokenValue] = useState(100);
+  const repeatedTopics: TopicProps[] = [
+    {
+      topic: "Web Development",
+      title: "Build a responsive website",
+      reward: "+20 Tokens",
+    },
+    {
+      topic: "Mobile Apps",
+      title: "Create a mobile app",
+      reward: "+30 Tokens",
+    },
+  ];
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
+    <>
+      <Header />
+      <ThemedView style={styles.pageBackground}>
+        <ThemedView style={styles.greetingRow}>
+          <ThemedView style={{ flex: 1 }}>
+            <Text style={styles.greetingText}>The Vault</Text>
+          </ThemedView>
+          <Image
+            source={require("../../assets/images/Standing.png")}
+            style={styles.illustration}
+            contentFit="contain"
+            alt="Illustration of a person standing"
+          />
+        </ThemedView>
+        <ThemedView style={styles.tokensCard}>
+          <Text style={styles.tokensTitle}>Collected Tokens</Text>
+          <ThemedView style={styles.tokenContainer}>
+            <Text style={styles.tokenValueNumber}>{tokenValue}</Text>
+          </ThemedView>
+        </ThemedView>
+        <TouchableOpacity
+          style={styles.redeemButton}
+          onPress={() => {
+            // Redeem logic here
+            setTokenValue(0);
+          }}
+        >
+          <Text style={{ color: "#fff", fontSize: 18, fontWeight: "600" }}>
+            Redeem
+          </Text>
+        </TouchableOpacity>
+        <ThemedView
+          style={{ flex: 1, padding: 10, backgroundColor: "#f3f6f9" }}
+        >
+          <Text style={{ fontSize: 18, color: "#222", marginBottom: 20 }}>
+           Popular options
+          </Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {repeatedTopics.map((t, idx) => (
+              <ThemedView key={idx} style={styles.bountyContainer}>
+                <Topic
+                  key={idx}
+                  topic={t.topic}
+                  title={t.title}
+                  reward={t.reward}
+                />
+              </ThemedView>
+            ))}
+          </ScrollView>
+        </ThemedView>
       </ThemedView>
-      <ThemedText>
-        This app includes example code to help you get started.
-      </ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{" "}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText>{" "}
-          and{" "}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in{" "}
-          <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{" "}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the
-          web version, press <ThemedText type="defaultSemiBold">w</ThemedText>{" "}
-          in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the{" "}
-          <ThemedText type="defaultSemiBold">@2x</ThemedText> and{" "}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to
-          provide files for different screen densities
-        </ThemedText>
-        <Image
-          source={require("@/assets/images/react-logo.png")}
-          style={{ alignSelf: "center" }}
-        />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Custom fonts">
-        <ThemedText>
-          Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText>{" "}
-          to see how to load{" "}
-          <ThemedText style={{ fontFamily: "SpaceMono" }}>
-            custom fonts such as this one.
-          </ThemedText>
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{" "}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook
-          lets you inspect what the user&apos;s current color scheme is, and so
-          you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{" "}
-          <ThemedText type="defaultSemiBold">
-            components/HelloWave.tsx
-          </ThemedText>{" "}
-          component uses the powerful{" "}
-          <ThemedText type="defaultSemiBold">
-            react-native-reanimated
-          </ThemedText>{" "}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The{" "}
-              <ThemedText type="defaultSemiBold">
-                components/ParallaxScrollView.tsx
-              </ThemedText>{" "}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    </>
   );
 }
