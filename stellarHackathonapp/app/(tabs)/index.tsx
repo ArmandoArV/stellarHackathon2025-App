@@ -114,12 +114,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
   },
   bountyContainer: {
-    width: 300,
-    height: 210,
-    marginRight: 5,
+    width: 280,
+    height: 190,
+    marginRight: 1,
     backgroundColor: "#f3f6f9",
     borderRadius: 8,
-    padding: 10,
+    padding: 3,
   },
 });
 
@@ -180,14 +180,19 @@ export default function HomeScreen() {
 
           {/* May interest you */}
           <ThemedView
-            style={{ backgroundColor: "#f3f6f9", alignContent: "center", justifyContent: "center", display: "flex" }}
+            style={{
+              backgroundColor: "#f3f6f9",
+              alignContent: "center",
+              justifyContent: "center",
+              display: "flex",
+            }}
           >
             <Text style={styles.sectionTitle}>May interest you</Text>
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
               contentContainerStyle={styles.bountyCardsRow}
-              style={{ paddingVertical: 8, backgroundColor: "#f3f6f9" }}
+              style={{ paddingVertical: 2, backgroundColor: "#f3f6f9" }}
             >
               {repeatedTopics.map((t, idx) => (
                 <ThemedView key={idx} style={styles.bountyContainer}>
