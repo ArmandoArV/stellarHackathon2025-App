@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,11 +6,11 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { ThemedView } from "@/components/ThemedView";
 import Header from "./components/Header";
-import { Video, AVPlaybackStatus } from "expo-av";
+import { WebView } from 'react-native-webview';
 
 const styles = StyleSheet.create({
   pageBackground: {
@@ -92,7 +92,7 @@ const topicInfo = {
   reward: "1000 XLM",
   topic: "Stop Dengue Before It Starts",
   videoUrl:
-    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", // Using a sample video URL
+    "https://www.youtube.com/embed/F9D7oudFtGA", // YouTube embed URL
 };
 
 type RootStackParamList = {
@@ -101,31 +101,14 @@ type RootStackParamList = {
 };
 
 export default function TopicDetail() {
-  const videoRef = useRef<Video>(null);
-  // Stop video when screen loses focus
-  useFocusEffect(
-    React.useCallback(() => {
-      return () => {
-        if (videoRef.current) {
-          videoRef.current.pauseAsync?.();
-        }
-      };
-    }, [])
-  );
-  const [topic, setTopic] = useState(topicInfo);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [videoError, setVideoError] = useState(false);
+  // Video logic removed; now using WebView for YouTube embed
+  const [topic] = useState(topicInfo);
+  const [loading] = useState(false);
+  const [error] = useState("");
+  // videoError state removed
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, "questions">>();
-  const handlePlaybackStatusUpdate = (status: AVPlaybackStatus) => {
-    if (!status.isLoaded) {
-      if (status.error) {
-        console.log(`Video error: ${status.error}`);
-        setVideoError(true);
-      }
-    }
-  };
+  // handlePlaybackStatusUpdate removed
 
   if (loading) return <ActivityIndicator size="large" color="#315A2B" />;
   if (error) return <Text style={styles.errorText}>{error}</Text>;
@@ -144,36 +127,24 @@ export default function TopicDetail() {
           </ThemedView>
 
           <ThemedView style={styles.videoContainer}>
-            {videoError ? (
-              <Text style={styles.errorText}>Failed to load video</Text>
-            ) : (
-              <Video
-                ref={videoRef}
-                source={{ uri: topic.videoUrl }}
-                style={styles.video}
-                useNativeControls
-                isLooping
-                onError={(error) => {
-                  console.log("Video error:", error);
-                  setVideoError(true);
-                }}
-                onPlaybackStatusUpdate={handlePlaybackStatusUpdate}
-              />
-            )}
+            <WebView
+              source={{ uri: topic.videoUrl }}
+              style={styles.video}
+              allowsFullscreenVideo
+              javaScriptEnabled
+              domStorageEnabled
+              startInLoadingState
+              renderError={() => (
+                <Text style={styles.errorText}>Failed to load video</Text>
+              )}
+            />
           </ThemedView>
 
           <ThemedView style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.redeemButton}
-              onPress={async () => {
-                try {
-                  if (videoRef.current) {
-                    await videoRef.current.playAsync();
-                  }
-                  console.log("Redeem button pressed");
-                } catch (error) {
-                  console.log("Playback error:", error);
-                }
+              onPress={() => {
+                console.log("Redeem button pressed");
                 navigation.navigate("questions", { id: topic.id });
               }}
             >
