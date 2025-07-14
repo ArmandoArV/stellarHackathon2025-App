@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Modal } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-
+import CongratsModal from "./components/CongratsModal";
 type RouteParams = {
   id: string;
 };
@@ -208,18 +208,11 @@ export default function Questions() {
             </TouchableOpacity>
           </View>
         </ScrollView>
-        <Modal
-          transparent
-          animationType="fade"
+        <CongratsModal
           visible={modalVisible}
-          onRequestClose={() => setModalVisible(false)}
-        >
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalText}>¡Respuestas enviadas!</Text>
-            </View>
-          </View>
-        </Modal>
+          onClose={() => setModalVisible(false)}
+          tokenCount={10} // Example token count
+        />
       </View>
     </GestureHandlerRootView>
   );
