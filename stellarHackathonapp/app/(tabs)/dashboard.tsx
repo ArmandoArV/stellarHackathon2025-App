@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { Image } from "expo-image";
 import {
   Platform,
@@ -11,6 +13,11 @@ import { ThemedView } from "@/components/ThemedView";
 import Header from "../components/Header";
 import Topic from "../components/Topic";
 import { TopicProps } from "../types/TopicProps";
+type RootStackParamList = {
+  TopicDetail: { id: string };
+  // Add other routes here if needed
+};
+
 const styles = StyleSheet.create({
   pageBackground: {
     backgroundColor: "#f3f6f9",
@@ -94,13 +101,17 @@ const styles = StyleSheet.create({
 
 export default function TabTwoScreen() {
   const [tokenValue, setTokenValue] = useState(100);
+  const navigation =
+    useNavigation<StackNavigationProp<RootStackParamList, "TopicDetail">>();
   const repeatedTopics: TopicProps[] = [
     {
+      id: "1",
       topic: "Web Development",
       title: "Build a responsive website",
       reward: "+20 Tokens",
     },
     {
+      id: "2",
       topic: "Mobile Apps",
       title: "Create a mobile app",
       reward: "+30 Tokens",
@@ -139,20 +150,35 @@ export default function TabTwoScreen() {
           </Text>
         </TouchableOpacity>
         <ThemedView
-          style={{ flex: 1, padding: 10, backgroundColor: "#f3f6f9", alignContent: "center", justifyContent: "center", display: "flex" }}
+          style={{
+            flex: 1,
+            padding: 10,
+            backgroundColor: "#f3f6f9",
+            alignContent: "center",
+            justifyContent: "center",
+            display: "flex",
+          }}
         >
           <Text style={{ fontSize: 18, color: "#222", marginBottom: 20 }}>
-           Popular options
+            Popular options
           </Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {repeatedTopics.map((t, idx) => (
               <ThemedView key={idx} style={styles.bountyContainer}>
-                <Topic
-                  key={idx}
-                  topic={t.topic}
-                  title={t.title}
-                  reward={t.reward}
-                />
+                <TouchableOpacity
+                  style={{ flex: 1 }}
+                  onPress={() =>
+                    navigation.navigate("TopicDetail", { id: t.id })
+                  }
+                >
+                  <Topic
+                    key={idx}
+                    id={t.id}
+                    topic={t.topic}
+                    title={t.title}
+                    reward={t.reward}
+                  />
+                </TouchableOpacity>
               </ThemedView>
             ))}
           </ScrollView>

@@ -126,11 +126,13 @@ const styles = StyleSheet.create({
 export default function HomeScreen() {
   const [topics, setTopics] = useState<TopicProps[]>([
     {
+      id: "1",
       topic: "Web Development",
       title: "Build a responsive website",
       reward: "+20 Tokens",
     },
     {
+      id: "2",
       topic: "Mobile Apps",
       title: "Create a mobile app",
       reward: "+30 Tokens",
@@ -197,6 +199,7 @@ export default function HomeScreen() {
               {repeatedTopics.map((t, idx) => (
                 <ThemedView key={idx} style={styles.bountyContainer}>
                   <Topic
+                    id={t.id}
                     key={idx}
                     topic={t.topic}
                     title={t.title}

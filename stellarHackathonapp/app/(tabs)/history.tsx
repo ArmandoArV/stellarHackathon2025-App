@@ -29,11 +29,13 @@ const styles = StyleSheet.create({
 export default function HistoryScreen() {
   const [topics, setTopics] = useState<TopicProps[]>([
     {
+      id: "1",
       topic: "Web Development",
       title: "Build a responsive website",
       reward: "+20 Tokens",
     },
     {
+      id: "2",
       topic: "Mobile Apps",
       title: "Create a mobile app",
       reward: "+30 Tokens",
@@ -54,6 +56,7 @@ export default function HistoryScreen() {
           <ScrollView>
             {topics.map((topic, index) => (
               <Topic
+                id={topic.id}
                 key={index}
                 topic={topic.topic}
                 title={topic.title}

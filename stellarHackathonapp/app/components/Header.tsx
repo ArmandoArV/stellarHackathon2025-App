@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 const styles = StyleSheet.create({
@@ -10,12 +10,6 @@ const styles = StyleSheet.create({
     paddingTop: 70,
     paddingBottom: 8,
     backgroundColor: "#f3f6f9",
-  },
-  logo: {
-    fontSize: 28,
-    fontWeight: "400",
-    letterSpacing: 2,
-    color: "#222",
   },
   bellWrapper: {
     alignItems: "center",
@@ -29,6 +23,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  logo: {
+    width: 40,
+    height: 40,
+  },
 });
 
 export default function Header() {
@@ -37,7 +35,11 @@ export default function Header() {
       <TouchableOpacity>
         <Ionicons name="settings-outline" size={28} color="#222" />
       </TouchableOpacity>
-      <Text style={styles.logo}>LOGO</Text>
+      <Image
+        source={require("../../assets/images/logo.svg")}
+        style={styles.logo}
+        resizeMode="contain"
+      />
       <TouchableOpacity style={styles.bellWrapper}>
         <View style={styles.bellCircle}>
           <Ionicons name="notifications-outline" size={22} color="#888" />
