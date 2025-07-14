@@ -106,9 +106,9 @@ export default function TabTwoScreen() {
   const repeatedTopics: TopicProps[] = [
     {
       id: "1",
-      topic: "Web Development",
-      title: "Build a responsive website",
-      reward: "+20 Tokens",
+      topic: "Token Award",
+      title: "Dengue Prevention Quiz",
+      reward: "+10 Tokens",
     },
     {
       id: "2",
